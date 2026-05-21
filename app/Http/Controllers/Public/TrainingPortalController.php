@@ -121,10 +121,10 @@ class TrainingPortalController extends Controller
             'residence_type_id' => 'nullable|exists:residence_types,id',
             'current_address' => 'nullable|string',
             'family_members_count' => 'nullable|integer|min:0|max:100',
-            'breadwinner_status' => 'nullable|in:husband,widow,divorced,other',
+            'breadwinner_status' => 'nullable|in:husband,single,widow,divorced,other',
             'employment_status' => 'nullable|in:employed,unemployed',
             'income_type_id' => 'nullable|exists:income_types,id',
-            'education_level' => 'nullable|in:none,preparatory,secondary,bachelor,master_or_above',
+            'education_level' => 'nullable|in:none,preparatory,secondary,diploma,bachelor,master_or_above',
             'specialization' => 'nullable|string|max:255',
             'health_status' => 'nullable|in:healthy,disabled',
         ];
@@ -238,6 +238,7 @@ class TrainingPortalController extends Controller
         if ($field === 'breadwinner_status') {
             return match ($value) {
                 'الزوج' => 'husband',
+                'أعزب' => 'single',
                 'أرملة' => 'widow',
                 'مطلقة' => 'divorced',
                 'أخرى' => 'other',
@@ -258,6 +259,7 @@ class TrainingPortalController extends Controller
                 'بدون' => 'none',
                 'شهادة ثالث إعدادي' => 'preparatory',
                 'ثانوية عامة' => 'secondary',
+                'دبلوم' => 'diploma',
                 'بكالوريوس' => 'bachelor',
                 'ماجستير فأعلى' => 'master_or_above',
                 default => $value,

@@ -112,6 +112,7 @@ class DynamicFormsSeeder extends Seeder
                     $this->field('عدد أفراد الأسرة', 'family_members_count', 'number', true, 6, null, 'min:0|max:100'),
                     $this->field('معيل الأسرة', 'breadwinner_status', 'select', true, 6, [
                         'الزوج',
+                        'أعزب',
                         'أرملة',
                         'مطلقة',
                         'أخرى',
@@ -137,6 +138,7 @@ class DynamicFormsSeeder extends Seeder
                         'بدون',
                         'شهادة ثالث إعدادي',
                         'ثانوية عامة',
+                        'دبلوم',
                         'بكالوريوس',
                         'ماجستير فأعلى',
                     ]),

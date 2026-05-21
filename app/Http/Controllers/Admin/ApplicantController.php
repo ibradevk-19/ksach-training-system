@@ -156,13 +156,13 @@ class ApplicantController extends Controller
 
             'family_members_count' => 'nullable|integer|min:0|max:100',
 
-            'breadwinner_status' => 'nullable|in:husband,widow,divorced,other',
+            'breadwinner_status' => 'nullable|in:husband,single,widow,divorced,other',
 
             'employment_status' => 'nullable|in:employed,unemployed',
 
             'income_type_id' => 'nullable|exists:income_types,id',
 
-            'education_level' => 'nullable|in:none,preparatory,secondary,bachelor,master_or_above',
+            'education_level' => 'nullable|in:none,preparatory,secondary,diploma,bachelor,master_or_above',
 
             'specialization' => 'nullable|string|max:255',
 

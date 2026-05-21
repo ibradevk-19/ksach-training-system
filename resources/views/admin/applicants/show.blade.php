@@ -3,12 +3,13 @@
 @php
   $genderLabels = ['male' => 'ذكر', 'female' => 'أنثى'];
   $displacementLabels = ['resident' => 'مقيم', 'displaced' => 'نازح'];
-  $breadwinnerLabels = ['husband' => 'الزوج', 'widow' => 'أرملة', 'divorced' => 'مطلقة', 'other' => 'أخرى'];
+  $breadwinnerLabels = ['husband' => 'الزوج', 'single' => 'أعزب', 'widow' => 'أرملة', 'divorced' => 'مطلقة', 'other' => 'أخرى'];
   $employmentLabels = ['employed' => 'يعمل / تعمل', 'unemployed' => 'لا يعمل / لا تعمل'];
   $educationLabels = [
     'none' => 'بدون',
     'preparatory' => 'شهادة ثالث إعدادي',
     'secondary' => 'ثانوية عامة',
+    'diploma' => 'دبلوم',
     'bachelor' => 'بكالوريوس',
     'master_or_above' => 'ماجستير فأعلى',
   ];

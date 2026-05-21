@@ -42,6 +42,7 @@ return new class extends Migration
 
             $table->enum('breadwinner_status', [
                 'husband',
+                'single',
                 'widow',
                 'divorced',
                 'other'
@@ -58,6 +59,7 @@ return new class extends Migration
                 'none',
                 'preparatory',
                 'secondary',
+                'diploma',
                 'bachelor',
                 'master_or_above'
             ])->nullable();

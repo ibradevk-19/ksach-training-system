@@ -140,6 +140,7 @@
         <select name="breadwinner_status" class="form-select">
           <option value="">اختر</option>
           <option value="husband" {{ old('breadwinner_status', $applicant->breadwinner_status ?? '') == 'husband' ? 'selected' : '' }}>الزوج</option>
+          <option value="single" {{ old('breadwinner_status', $applicant->breadwinner_status ?? '') == 'single' ? 'selected' : '' }}>أعزب</option>
           <option value="widow" {{ old('breadwinner_status', $applicant->breadwinner_status ?? '') == 'widow' ? 'selected' : '' }}>أرملة</option>
           <option value="divorced" {{ old('breadwinner_status', $applicant->breadwinner_status ?? '') == 'divorced' ? 'selected' : '' }}>مطلقة</option>
           <option value="other" {{ old('breadwinner_status', $applicant->breadwinner_status ?? '') == 'other' ? 'selected' : '' }}>أخرى</option>
@@ -186,6 +187,7 @@
           <option value="none" {{ old('education_level', $applicant->education_level ?? '') == 'none' ? 'selected' : '' }}>بدون</option>
           <option value="preparatory" {{ old('education_level', $applicant->education_level ?? '') == 'preparatory' ? 'selected' : '' }}>شهادة ثالث إعدادي</option>
           <option value="secondary" {{ old('education_level', $applicant->education_level ?? '') == 'secondary' ? 'selected' : '' }}>ثانوية عامة</option>
+          <option value="diploma" {{ old('education_level', $applicant->education_level ?? '') == 'diploma' ? 'selected' : '' }}>دبلوم</option>
           <option value="bachelor" {{ old('education_level', $applicant->education_level ?? '') == 'bachelor' ? 'selected' : '' }}>بكالوريوس</option>
           <option value="master_or_above" {{ old('education_level', $applicant->education_level ?? '') == 'master_or_above' ? 'selected' : '' }}>ماجستير فأعلى</option>
         </select>
