@@ -58,6 +58,8 @@ class TrainingPortalController extends Controller
 
         $track->load('form.fields');
 
+        $this->syncApplicantFieldsFromDynamicAnswers($request, $track);
+
         $rules = $this->validationRules($track);
 
         $request->validate(
@@ -123,6 +125,123 @@ class TrainingPortalController extends Controller
         }
 
         return $rules;
+    }
+
+    private function syncApplicantFieldsFromDynamicAnswers(Request $request, Track $track): void
+    {
+        $answers = (array) $request->input('answers', []);
+        $baseValues = [];
+
+        foreach ($track->form?->fields()->where('status', true)->get() ?? [] as $field) {
+            $baseField = $this->dynamicApplicantFieldMap()[$field->name] ?? null;
+
+            if (! $baseField || $field->type === 'file') {
+                continue;
+            }
+
+            $answerValue = data_get($answers, $field->id);
+            $baseValue = $request->input($baseField);
+
+            if ($this->hasSubmittedValue($answerValue) && ! $this->hasSubmittedValue($baseValue)) {
+                $baseValues[$baseField] = $this->normalizeApplicantValue($baseField, $answerValue);
+            }
+
+            if ($this->hasSubmittedValue($baseValue) && ! $this->hasSubmittedValue($answerValue)) {
+                data_set($answers, $field->id, $baseValue);
+            }
+        }
+
+        if ($baseValues) {
+            $request->merge($baseValues);
+        }
+
+        $request->merge(['answers' => $answers]);
+    }
+
+    private function dynamicApplicantFieldMap(): array
+    {
+        return [
+            'full_name' => 'full_name',
+            'national_id' => 'national_id',
+            'phone_1' => 'phone_1',
+            'phone_2' => 'phone_2',
+            'gender' => 'gender',
+            'current_address' => 'current_address',
+            'family_members_count' => 'family_members_count',
+            'displacement_status' => 'displacement_status',
+            'breadwinner_status' => 'breadwinner_status',
+            'employment_status' => 'employment_status',
+            'education_level' => 'education_level',
+            'specialization' => 'specialization',
+            'health_status' => 'health_status',
+        ];
+    }
+
+    private function normalizeApplicantValue(string $field, mixed $value): mixed
+    {
+        if ($field === 'gender') {
+            return match ($value) {
+                'ذكر' => 'male',
+                'أنثى' => 'female',
+                default => $value,
+            };
+        }
+
+        if ($field === 'displacement_status') {
+            return match ($value) {
+                'مقيم' => 'resident',
+                'نازح' => 'displaced',
+                default => $value,
+            };
+        }
+
+        if ($field === 'breadwinner_status') {
+            return match ($value) {
+                'الزوج' => 'husband',
+                'أرملة' => 'widow',
+                'مطلقة' => 'divorced',
+                'أخرى' => 'other',
+                default => $value,
+            };
+        }
+
+        if ($field === 'employment_status') {
+            return match ($value) {
+                'يعمل / تعمل' => 'employed',
+                'لا يعمل / لا تعمل' => 'unemployed',
+                default => $value,
+            };
+        }
+
+        if ($field === 'education_level') {
+            return match ($value) {
+                'بدون' => 'none',
+                'شهادة ثالث إعدادي' => 'preparatory',
+                'ثانوية عامة' => 'secondary',
+                'بكالوريوس' => 'bachelor',
+                'ماجستير فأعلى' => 'master_or_above',
+                default => $value,
+            };
+        }
+
+        if ($field === 'health_status') {
+            return match ($value) {
+                'سليم / سليمة' => 'healthy',
+                'ذوي إعاقة' => 'disabled',
+                default => $value,
+            };
+        }
+
+        return $value;
+    }
+
+    private function hasSubmittedValue(mixed $value): bool
+    {
+        if (is_array($value)) {
+            return count(array_filter($value, fn ($item) => $item !== null && $item !== '')) > 0;
+        }
+
+        return $value !== null && $value !== '';
     }
 
     private function validationMessages(): array
