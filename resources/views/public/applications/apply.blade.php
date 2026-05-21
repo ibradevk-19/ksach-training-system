@@ -1,27 +1,4 @@
 @php
-    $skipFields = [
-        'full_name',
-        'national_id',
-        'phone_1',
-        'phone_2',
-        'gender',
-        'age_group',
-        'governorate',
-        'displacement_status',
-        'residence_type',
-        'current_address',
-        'family_members_count',
-        'breadwinner_status',
-        'employment_status',
-        'monthly_income',
-        'education_level',
-        'specialization',
-        'health_status',
-        'identity_image',
-        'medical_report',
-        'education_certificate',
-    ];
-
     $genderLabels = [
         'male' => 'ذكور فقط',
         'female' => 'إناث فقط',
@@ -729,8 +706,7 @@
                     @foreach($form->sections as $section)
                         @php
                             $activeFields = $section->fields
-                                ->where('status', true)
-                                ->reject(fn($field) => in_array($field->name, $skipFields));
+                                ->where('status', true);
                         @endphp
 
                         @continue($activeFields->isEmpty())

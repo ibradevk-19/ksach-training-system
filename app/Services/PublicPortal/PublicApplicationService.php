@@ -96,9 +96,7 @@ class PublicApplicationService
 
         foreach ($fields as $field) {
             $inputName = 'answers.' . $field->id;
-            if (in_array($field->name, $this->skippedDynamicFields())) {
-                    continue;
-                }
+
             if ($field->type === 'file') {
                 if ($request->hasFile($inputName)) {
                     $file = $request->file($inputName);
@@ -131,32 +129,4 @@ class PublicApplicationService
         }
     }
 
-    private function skippedDynamicFields(): array
-    {
-        return [
-            'full_name',
-            'national_id',
-            'phone_1',
-            'phone_2',
-            'gender',
-            'age_group',
-
-            'governorate',
-            'displacement_status',
-            'residence_type',
-            'current_address',
-            'family_members_count',
-            'breadwinner_status',
-
-            'employment_status',
-            'monthly_income',
-            'education_level',
-            'specialization',
-            'health_status',
-
-            'identity_image',
-            'medical_report',
-            'education_certificate',
-        ];
-    }
 }

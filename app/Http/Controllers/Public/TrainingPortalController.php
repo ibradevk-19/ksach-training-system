@@ -105,11 +105,6 @@ class TrainingPortalController extends Controller
         ];
 
         foreach ($track->form?->fields()->where('status', true)->get() ?? [] as $field) {
-
-                if (in_array($field->name, $this->skippedDynamicFields())) {
-                    continue;
-                }
-
                 $fieldRules = [];
 
                 $fieldRules[] = $field->is_required ? 'required' : 'nullable';
@@ -184,36 +179,6 @@ class TrainingPortalController extends Controller
 
         return $attributes;
     }
-
-    private function skippedDynamicFields(): array
-    {
-        return [
-            'full_name',
-            'national_id',
-            'phone_1',
-            'phone_2',
-            'gender',
-            'age_group',
-
-            'governorate',
-            'displacement_status',
-            'residence_type',
-            'current_address',
-            'family_members_count',
-            'breadwinner_status',
-
-            'employment_status',
-            'monthly_income',
-            'education_level',
-            'specialization',
-            'health_status',
-
-            'identity_image',
-            'medical_report',
-            'education_certificate',
-        ];
-    }
-
 
     public function landing()
 {
