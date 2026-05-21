@@ -18,12 +18,19 @@ class DatabaseSeeder extends Seeder
         //     'dr.essam@ksach.org'
         // ])->delete();
 
-        $this->call([
-            PermissionSeeder::class,
-            RolePermissionSeeder::class,
-        ]);
+        // $this->call([
+        //     PermissionSeeder::class,
+        //     RolePermissionSeeder::class,
+        // ]);
 
         $user = User::updateOrCreate(
+            ['email' => 'ksach.4005@gmail.com'],
+            [
+                'name' => 'Admin',
+                'password' => bcrypt('Elkods@2009'),
+            ]
+        );
+          $user2 = User::updateOrCreate(
             ['email' => 'ksach.4005@gmail.com'],
             [
                 'name' => 'Admin',

@@ -60,7 +60,11 @@ class TrainingPortalController extends Controller
 
         $rules = $this->validationRules($track);
 
-        $request->validate($rules);
+        $request->validate(
+            $rules,
+            $this->validationMessages(),
+            $this->validationAttributes($track)
+        );
 
         $application = $service->submit($request, $track);
 
@@ -124,6 +128,61 @@ class TrainingPortalController extends Controller
         }
 
         return $rules;
+    }
+
+    private function validationMessages(): array
+    {
+        return [
+            'required' => 'حقل :attribute مطلوب.',
+            'string' => 'حقل :attribute يجب أن يكون نصاً.',
+            'integer' => 'حقل :attribute يجب أن يكون رقماً صحيحاً.',
+            'numeric' => 'حقل :attribute يجب أن يكون رقماً.',
+            'date' => 'حقل :attribute يجب أن يكون تاريخاً صحيحاً.',
+            'email' => 'حقل :attribute يجب أن يكون بريداً إلكترونياً صحيحاً.',
+            'boolean' => 'حقل :attribute يجب أن يكون صحيحاً أو خطأ.',
+            'array' => 'حقل :attribute يجب أن يحتوي على قائمة اختيارات.',
+            'file' => 'حقل :attribute يجب أن يكون ملفاً.',
+            'mimes' => 'حقل :attribute يجب أن يكون من نوع: :values.',
+            'max.string' => 'حقل :attribute يجب ألا يزيد عن :max حرفاً.',
+            'max.numeric' => 'حقل :attribute يجب ألا يزيد عن :max.',
+            'max.file' => 'حجم ملف :attribute يجب ألا يزيد عن :max كيلوبايت.',
+            'min.string' => 'حقل :attribute يجب ألا يقل عن :min حروف.',
+            'min.numeric' => 'حقل :attribute يجب ألا يقل عن :min.',
+            'in' => 'القيمة المختارة في حقل :attribute غير صحيحة.',
+            'exists' => 'القيمة المختارة في حقل :attribute غير موجودة.',
+            'unique' => 'قيمة حقل :attribute مستخدمة مسبقاً.',
+            'confirmed' => 'تأكيد حقل :attribute غير مطابق.',
+        ];
+    }
+
+    private function validationAttributes(Track $track): array
+    {
+        $attributes = [
+            'full_name' => 'الاسم الرباعي',
+            'national_id' => 'رقم الهوية',
+            'phone_1' => 'رقم تواصل 1',
+            'phone_2' => 'رقم تواصل 2',
+            'gender' => 'الجنس',
+            'birth_date' => 'تاريخ الميلاد',
+            'governorate_id' => 'المحافظة',
+            'displacement_status' => 'الإقامة',
+            'residence_type_id' => 'مكان الإقامة الحالي',
+            'current_address' => 'عنوان السكن الحالي',
+            'family_members_count' => 'عدد أفراد الأسرة',
+            'breadwinner_status' => 'معيل الأسرة',
+            'employment_status' => 'حالة العمل',
+            'income_type_id' => 'مستوى الدخل',
+            'education_level' => 'المستوى التعليمي',
+            'specialization' => 'التخصص',
+            'health_status' => 'الوضع الصحي',
+            'answers' => 'الإجابات',
+        ];
+
+        foreach ($track->form?->fields()->where('status', true)->get() ?? [] as $field) {
+            $attributes['answers.' . $field->id] = $field->label;
+        }
+
+        return $attributes;
     }
 
     private function skippedDynamicFields(): array
