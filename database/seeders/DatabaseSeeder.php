@@ -23,21 +23,24 @@ class DatabaseSeeder extends Seeder
         //     RolePermissionSeeder::class,
         // ]);
 
-        $user = User::updateOrCreate(
-            ['email' => 'ksach.4005@gmail.com'],
+       
+        $user2 = User::updateOrCreate(
+            ['email' => 'yaig79@gmail.com'],
             [
                 'name' => 'Admin',
-                'password' => bcrypt('Elkods@2009'),
-            ]
-        );
-          $user2 = User::updateOrCreate(
-            ['email' => 'ksach.4005@gmail.com'],
-            [
-                'name' => 'Admin',
-                'password' => bcrypt('Elkods@2009'),
+                'password' => bcrypt('yaig79'),
             ]
         );
 
-        $user->assignRole(Role::firstOrCreate(['name' => 'Super Admin']));
+        $user3 = User::updateOrCreate(
+            ['email' => 'Eng_shadi2011@hotmail.com'],
+            [
+                'name' => 'Admin',
+                'password' => bcrypt('shadi2011'),
+            ]
+        );
+
+        $user2->assignRole(Role::firstOrCreate(['name' => 'Super Admin']));
+        $user3->assignRole(Role::firstOrCreate(['name' => 'Super Admin']));
     }
 }

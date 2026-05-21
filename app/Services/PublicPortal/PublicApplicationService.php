@@ -92,7 +92,13 @@ class PublicApplicationService
             ]);
         }
 
-        $fields = $form->fields()->where('status', true)->get();
+        $fieldsQuery = $form->fields()->where('status', true);
+
+        if ($request->has('visible_form_fields')) {
+            $fieldsQuery->whereIn('id', $request->input('visible_form_fields', []));
+        }
+
+        $fields = $fieldsQuery->get();
 
         foreach ($fields as $field) {
             $inputName = 'answers.' . $field->id;

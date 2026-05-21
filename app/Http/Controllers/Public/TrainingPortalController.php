@@ -86,6 +86,8 @@ class TrainingPortalController extends Controller
 
     private function validationRules(Track $track): array
     {
+        $visibleFieldIds = $this->visibleDynamicFieldIds();
+
         $rules = [
             'full_name' => 'required|string|max:255',
             'national_id' => 'required|string|max:20',
@@ -107,6 +109,10 @@ class TrainingPortalController extends Controller
         ];
 
         foreach ($track->form?->fields()->where('status', true)->get() ?? [] as $field) {
+                if ($visibleFieldIds !== null && ! in_array((string) $field->id, $visibleFieldIds, true)) {
+                    continue;
+                }
+
                 $fieldRules = [];
 
                 $fieldRules[] = $field->is_required ? 'required' : 'nullable';
@@ -125,6 +131,19 @@ class TrainingPortalController extends Controller
         }
 
         return $rules;
+    }
+
+    private function visibleDynamicFieldIds(): ?array
+    {
+        if (! request()->has('visible_form_fields')) {
+            return null;
+        }
+
+        return collect(request()->input('visible_form_fields', []))
+            ->map(fn ($id) => (string) $id)
+            ->unique()
+            ->values()
+            ->all();
     }
 
     private function syncApplicantFieldsFromDynamicAnswers(Request $request, Track $track): void

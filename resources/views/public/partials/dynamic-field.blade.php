@@ -1,3 +1,5 @@
+<input type="hidden" name="visible_form_fields[]" value="{{ $field->id }}">
+
 <label class="form-label">
     {{ $field->label }}
 
