@@ -144,6 +144,8 @@ class ApplicantController extends Controller
 
             'gender' => 'required|in:male,female',
 
+            'marital_status' => 'nullable|in:husband,single,widow,divorced,other',
+
             'birth_date' => 'nullable|date',
 
             'governorate_id' => 'nullable|exists:governorates,id',

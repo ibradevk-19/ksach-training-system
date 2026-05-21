@@ -12,6 +12,7 @@ class Applicant extends Model
         'phone_1',
         'phone_2',
         'gender',
+        'marital_status',
         'birth_date',
         'governorate_id',
         'displacement_status',

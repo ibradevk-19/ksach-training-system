@@ -71,6 +71,10 @@
             <strong>{{ $genderLabels[$applicant->gender] ?? '-' }}</strong>
           </div>
           <div class="list-group-item d-flex justify-content-between">
+            <span class="text-muted">الحالة الاجتماعية</span>
+            <strong>{{ $breadwinnerLabels[$applicant->marital_status] ?? '-' }}</strong>
+          </div>
+          <div class="list-group-item d-flex justify-content-between">
             <span class="text-muted">رقم التواصل</span>
             <strong>{{ $applicant->phone_1 }}</strong>
           </div>

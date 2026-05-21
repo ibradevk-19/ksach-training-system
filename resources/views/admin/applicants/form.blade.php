@@ -41,6 +41,18 @@
       </div>
 
       <div class="col-md-3 mb-3">
+        <label class="form-label">الحالة الاجتماعية</label>
+        <select name="marital_status" class="form-select">
+          <option value="">اختر</option>
+          <option value="husband" {{ old('marital_status', $applicant->marital_status ?? '') == 'husband' ? 'selected' : '' }}>الزوج</option>
+          <option value="single" {{ old('marital_status', $applicant->marital_status ?? '') == 'single' ? 'selected' : '' }}>أعزب</option>
+          <option value="widow" {{ old('marital_status', $applicant->marital_status ?? '') == 'widow' ? 'selected' : '' }}>أرملة</option>
+          <option value="divorced" {{ old('marital_status', $applicant->marital_status ?? '') == 'divorced' ? 'selected' : '' }}>مطلقة</option>
+          <option value="other" {{ old('marital_status', $applicant->marital_status ?? '') == 'other' ? 'selected' : '' }}>أخرى</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 mb-3">
         <label class="form-label">رقم تواصل 1</label>
         <input type="text"
                name="phone_1"

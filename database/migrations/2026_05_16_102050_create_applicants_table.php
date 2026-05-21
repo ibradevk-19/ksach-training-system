@@ -22,6 +22,14 @@ return new class extends Migration
 
             $table->enum('gender', ['male', 'female']);
 
+            $table->enum('marital_status', [
+                'husband',
+                'single',
+                'widow',
+                'divorced',
+                'other'
+            ])->nullable();
+
             $table->date('birth_date')->nullable();
 
             $table->foreignId('governorate_id')

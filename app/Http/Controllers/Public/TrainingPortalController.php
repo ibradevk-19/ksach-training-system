@@ -115,6 +115,7 @@ class TrainingPortalController extends Controller
             ],
             'phone_2' => 'nullable|string|max:20',
             'gender' => 'required|in:male,female',
+            'marital_status' => 'nullable|in:husband,single,widow,divorced,other',
             'birth_date' => 'nullable|date',
             'governorate_id' => 'nullable|exists:governorates,id',
             'displacement_status' => 'nullable|in:resident,displaced',
@@ -206,6 +207,7 @@ class TrainingPortalController extends Controller
             'phone_1' => 'phone_1',
             'phone_2' => 'phone_2',
             'gender' => 'gender',
+            'marital_status' => 'marital_status',
             'current_address' => 'current_address',
             'family_members_count' => 'family_members_count',
             'displacement_status' => 'displacement_status',
@@ -235,7 +237,7 @@ class TrainingPortalController extends Controller
             };
         }
 
-        if ($field === 'breadwinner_status') {
+        if (in_array($field, ['breadwinner_status', 'marital_status'], true)) {
             return match ($value) {
                 'الزوج' => 'husband',
                 'أعزب' => 'single',
@@ -326,6 +328,7 @@ class TrainingPortalController extends Controller
             'phone_1' => 'رقم تواصل 1',
             'phone_2' => 'رقم تواصل 2',
             'gender' => 'الجنس',
+            'marital_status' => 'الحالة الاجتماعية',
             'birth_date' => 'تاريخ الميلاد',
             'governorate_id' => 'المحافظة',
             'displacement_status' => 'الإقامة',

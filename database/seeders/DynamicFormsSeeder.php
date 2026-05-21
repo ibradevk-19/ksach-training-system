@@ -79,6 +79,13 @@ class DynamicFormsSeeder extends Seeder
                     $this->field('رقم تواصل 1', 'phone_1', 'text', true, 6, null, 'max:20'),
                     $this->field('رقم تواصل 2', 'phone_2', 'text', false, 6, null, 'max:20'),
                     $this->field('الجنس', 'gender', 'radio', true, 6, ['ذكر', 'أنثى']),
+                    $this->field('الحالة الاجتماعية', 'marital_status', 'select', false, 6, [
+                        'الزوج',
+                        'أعزب',
+                        'أرملة',
+                        'مطلقة',
+                        'أخرى',
+                    ]),
                     $this->field('الفئة العمرية', 'age_group', 'select', true, 6, [
                         '18 سنة حتى أقل من 30 سنة',
                         '30 حتى أقل من 40 سنة',
