@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\Governorate;
 use App\Models\IncomeType;
+use App\Models\Applicant;
 use App\Models\ResidenceType;
 use App\Models\Track;
 use App\Services\PublicPortal\PublicApplicationService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class TrainingPortalController extends Controller
 {
@@ -68,7 +72,17 @@ class TrainingPortalController extends Controller
             $this->validationAttributes($track)
         );
 
-        $application = $service->submit($request, $track);
+        try {
+            $application = $service->submit($request, $track);
+        } catch (QueryException $exception) {
+            if ($this->isDuplicatePhoneException($exception)) {
+                throw ValidationException::withMessages([
+                    'phone_1' => 'رقم التواصل المدخل مستخدم مسبقاً لمتقدم آخر. يرجى إدخال رقم مختلف أو مراجعة الإدارة.',
+                ]);
+            }
+
+            throw $exception;
+        }
 
         return redirect()
             ->route('public.applications.success', $application)
@@ -88,10 +102,17 @@ class TrainingPortalController extends Controller
     {
         $visibleFieldIds = $this->visibleDynamicFieldIds();
 
+        $existingApplicant = Applicant::where('national_id', request('national_id'))->first();
+
         $rules = [
             'full_name' => 'required|string|max:255',
             'national_id' => 'required|string|max:20',
-            'phone_1' => 'required|string|max:20',
+            'phone_1' => [
+                'required',
+                'string',
+                'max:20',
+                Rule::unique('applicants', 'phone_1')->ignore($existingApplicant?->id),
+            ],
             'phone_2' => 'nullable|string|max:20',
             'gender' => 'required|in:male,female',
             'birth_date' => 'nullable|date',
@@ -263,9 +284,16 @@ class TrainingPortalController extends Controller
         return $value !== null && $value !== '';
     }
 
+    private function isDuplicatePhoneException(QueryException $exception): bool
+    {
+        return str_contains($exception->getMessage(), 'applicants_phone_1_unique')
+            || str_contains($exception->getMessage(), 'phone_1');
+    }
+
     private function validationMessages(): array
     {
         return [
+            'phone_1.unique' => 'رقم التواصل المدخل مستخدم مسبقاً لمتقدم آخر. يرجى إدخال رقم مختلف أو مراجعة الإدارة.',
             'required' => 'حقل :attribute مطلوب.',
             'string' => 'حقل :attribute يجب أن يكون نصاً.',
             'integer' => 'حقل :attribute يجب أن يكون رقماً صحيحاً.',
