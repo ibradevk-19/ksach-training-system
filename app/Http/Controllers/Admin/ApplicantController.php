@@ -87,6 +87,9 @@ class ApplicantController extends Controller
             'governorate',
             'residenceType',
             'incomeType',
+            'applications.track.form.sections.fields',
+            'applications.answers.field.section',
+            'applications.files.field.section',
         ]);
 
         return view('admin.applicants.show', compact('applicant'));
