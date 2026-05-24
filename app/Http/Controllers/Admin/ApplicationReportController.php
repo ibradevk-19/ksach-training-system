@@ -66,6 +66,7 @@ class ApplicationReportController extends Controller
     {
         $query = Application::with([
             'applicant.governorate',
+            'applicant.populationCommunity',
             'track',
             'review',
         ])->latest();

@@ -8,6 +8,7 @@ use App\Models\Governorate;
 use App\Models\IncomeType;
 use App\Models\ResidenceType;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ApplicantController extends Controller
 {
@@ -15,6 +16,7 @@ class ApplicantController extends Controller
     {
         $query = Applicant::with([
             'governorate',
+            'populationCommunity',
             'residenceType',
             'incomeType',
         ])->latest();
@@ -85,6 +87,7 @@ class ApplicantController extends Controller
     {
         $applicant->load([
             'governorate',
+            'populationCommunity',
             'residenceType',
             'incomeType',
             'applications.track.form.sections.fields',
@@ -126,7 +129,9 @@ class ApplicantController extends Controller
     private function formData(): array
     {
         return [
-            'governorates' => Governorate::where('status', true)->get(),
+            'governorates' => Governorate::with([
+                'populationCommunities' => fn ($query) => $query->where('status', true)->orderBy('name'),
+            ])->where('status', true)->get(),
             'residenceTypes' => ResidenceType::where('status', true)->get(),
             'incomeTypes' => IncomeType::where('status', true)->get(),
         ];
@@ -149,6 +154,14 @@ class ApplicantController extends Controller
             'birth_date' => 'nullable|date',
 
             'governorate_id' => 'nullable|exists:governorates,id',
+
+            'population_community_id' => [
+                'nullable',
+                Rule::exists('population_communities', 'id')
+                    ->where(fn ($query) => $query
+                        ->where('governorate_id', $request->input('governorate_id'))
+                        ->where('status', true)),
+            ],
 
             'displacement_status' => 'nullable|in:resident,displaced',
 

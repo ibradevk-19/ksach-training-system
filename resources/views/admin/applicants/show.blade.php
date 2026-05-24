@@ -127,6 +127,7 @@
         <div class="card-body">
           <div class="row g-3">
             <div class="col-md-4"><div class="text-muted">المحافظة</div><strong>{{ $applicant->governorate?->name ?? '-' }}</strong></div>
+            <div class="col-md-4"><div class="text-muted">التجمع السكاني</div><strong>{{ $applicant->populationCommunity?->name ?? '-' }}</strong></div>
             <div class="col-md-4"><div class="text-muted">الإقامة</div><strong>{{ $displacementLabels[$applicant->displacement_status] ?? '-' }}</strong></div>
             <div class="col-md-4"><div class="text-muted">مكان الإقامة</div><strong>{{ $applicant->residenceType?->name ?? '-' }}</strong></div>
             <div class="col-md-4"><div class="text-muted">عدد أفراد الأسرة</div><strong>{{ $value($applicant->family_members_count) }}</strong></div>

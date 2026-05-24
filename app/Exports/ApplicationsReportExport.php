@@ -28,6 +28,7 @@ class ApplicationsReportExport implements FromCollection, WithHeadings, WithMapp
             'رقم الجوال',
             'الجنس',
             'المحافظة',
+            'التجمع السكاني',
             'المسار',
             'حالة الطلب',
             'الأهلية',
@@ -46,6 +47,7 @@ class ApplicationsReportExport implements FromCollection, WithHeadings, WithMapp
             $application->applicant?->phone_1,
             $application->applicant?->gender == 'male' ? 'ذكر' : 'أنثى',
             $application->applicant?->governorate?->name,
+            $application->applicant?->populationCommunity?->name,
             $application->track?->title,
             $this->statusLabel($application->status),
             $this->eligibilityLabel($application->review?->eligibility_status),
@@ -59,6 +61,7 @@ class ApplicationsReportExport implements FromCollection, WithHeadings, WithMapp
     {
         $query = Application::with([
             'applicant.governorate',
+            'applicant.populationCommunity',
             'track',
             'review',
         ])->latest();
@@ -80,6 +83,12 @@ class ApplicationsReportExport implements FromCollection, WithHeadings, WithMapp
         if ($this->request->filled('gender')) {
             $query->whereHas('applicant', function ($q) {
                 $q->where('gender', $this->request->gender);
+            });
+        }
+
+        if ($this->request->filled('governorate_id')) {
+            $query->whereHas('applicant', function ($q) {
+                $q->where('governorate_id', $this->request->governorate_id);
             });
         }
 

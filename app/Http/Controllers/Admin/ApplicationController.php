@@ -89,6 +89,7 @@ class ApplicationController extends Controller
     {
         $application->load([
             'applicant.governorate',
+            'applicant.populationCommunity',
             'applicant.residenceType',
             'applicant.incomeType',
             'track.type',

@@ -101,7 +101,7 @@
 
       <div class="col-md-4 mb-3">
         <label class="form-label">المحافظة الحالية</label>
-        <select name="governorate_id" class="form-select">
+	        <select name="governorate_id" class="form-select js-governorate-select">
           <option value="">اختر</option>
           @foreach($governorates as $governorate)
             <option value="{{ $governorate->id }}" {{ old('governorate_id', $applicant->governorate_id ?? '') == $governorate->id ? 'selected' : '' }}>
@@ -111,7 +111,17 @@
         </select>
       </div>
 
-      <div class="col-md-4 mb-3">
+	      <div class="col-md-4 mb-3">
+	        <label class="form-label">التجمع السكاني</label>
+	        <select name="population_community_id" class="form-select js-population-community-select @error('population_community_id') is-invalid @enderror" data-selected="{{ old('population_community_id', $applicant->population_community_id ?? '') }}">
+	          <option value="">اختر</option>
+	        </select>
+	        @error('population_community_id')
+	          <div class="invalid-feedback">{{ $message }}</div>
+	        @enderror
+	      </div>
+
+	      <div class="col-md-4 mb-3">
         <label class="form-label">الإقامة</label>
         <select name="displacement_status" class="form-select">
           <option value="">اختر</option>
@@ -279,3 +289,52 @@
     <button class="btn btn-primary">{{ $button ?? 'حفظ' }}</button>
   </div>
 </div>
+
+@php
+  $populationCommunitiesByGovernorate = $governorates->mapWithKeys(function ($governorate) {
+    return [
+      $governorate->id => $governorate->populationCommunities->map(function ($community) {
+        return [
+          'id' => $community->id,
+          'name' => $community->name,
+        ];
+      })->values(),
+    ];
+  });
+@endphp
+
+@push('scripts')
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const communitiesByGovernorate = @json($populationCommunitiesByGovernorate);
+
+      const governorateSelect = document.querySelector('.js-governorate-select');
+      const communitySelect = document.querySelector('.js-population-community-select');
+
+      if (!governorateSelect || !communitySelect) {
+        return;
+      }
+
+      function renderCommunities() {
+        const selectedCommunity = communitySelect.dataset.selected || '';
+        const communities = communitiesByGovernorate[governorateSelect.value] || [];
+
+        communitySelect.innerHTML = '';
+        communitySelect.add(new Option('اختر', ''));
+
+        communities.forEach(function (community) {
+          communitySelect.add(new Option(community.name, community.id, false, String(community.id) === String(selectedCommunity)));
+        });
+
+        communitySelect.disabled = communities.length === 0;
+      }
+
+      governorateSelect.addEventListener('change', function () {
+        communitySelect.dataset.selected = '';
+        renderCommunities();
+      });
+
+      renderCommunities();
+    });
+  </script>
+@endpush

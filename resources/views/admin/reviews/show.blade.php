@@ -101,6 +101,7 @@
             <div class="col-md-4 mb-3"><strong>الجوال:</strong><div>{{ $application->applicant?->phone_1 }}</div></div>
             <div class="col-md-4 mb-3"><strong>الجنس:</strong><div>{{ $application->applicant?->gender == 'male' ? 'ذكر' : 'أنثى' }}</div></div>
             <div class="col-md-4 mb-3"><strong>المحافظة:</strong><div>{{ $application->applicant?->governorate?->name ?? '-' }}</div></div>
+            <div class="col-md-4 mb-3"><strong>التجمع السكاني:</strong><div>{{ $application->applicant?->populationCommunity?->name ?? '-' }}</div></div>
             <div class="col-md-4 mb-3"><strong>الحالة الصحية:</strong><div>{{ $application->applicant?->health_status == 'disabled' ? 'ذوي إعاقة' : 'سليم' }}</div></div>
           </div>
         </div>

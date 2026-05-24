@@ -50,7 +50,9 @@ class TrainingPortalController extends Controller
         return view('public.applications.apply', [
             'track' => $track,
             'form' => $track->form,
-            'governorates' => Governorate::where('status', true)->get(),
+            'governorates' => Governorate::with([
+                'populationCommunities' => fn ($query) => $query->where('status', true)->orderBy('name'),
+            ])->where('status', true)->get(),
             'residenceTypes' => ResidenceType::where('status', true)->get(),
             'incomeTypes' => IncomeType::where('status', true)->get(),
         ]);
@@ -118,6 +120,13 @@ class TrainingPortalController extends Controller
             'marital_status' => 'nullable|in:husband,single,widow,divorced,other',
             'birth_date' => 'nullable|date',
             'governorate_id' => 'nullable|exists:governorates,id',
+            'population_community_id' => [
+                'nullable',
+                Rule::exists('population_communities', 'id')
+                    ->where(fn ($query) => $query
+                        ->where('governorate_id', request('governorate_id'))
+                        ->where('status', true)),
+            ],
             'displacement_status' => 'nullable|in:resident,displaced',
             'residence_type_id' => 'nullable|exists:residence_types,id',
             'current_address' => 'nullable|string',
@@ -331,6 +340,7 @@ class TrainingPortalController extends Controller
             'marital_status' => 'الحالة الاجتماعية',
             'birth_date' => 'تاريخ الميلاد',
             'governorate_id' => 'المحافظة',
+            'population_community_id' => 'التجمع السكاني',
             'displacement_status' => 'الإقامة',
             'residence_type_id' => 'مكان الإقامة الحالي',
             'current_address' => 'عنوان السكن الحالي',

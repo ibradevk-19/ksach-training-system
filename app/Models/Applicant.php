@@ -15,6 +15,7 @@ class Applicant extends Model
         'marital_status',
         'birth_date',
         'governorate_id',
+        'population_community_id',
         'displacement_status',
         'residence_type_id',
         'current_address',
@@ -40,6 +41,11 @@ class Applicant extends Model
     public function governorate()
     {
         return $this->belongsTo(Governorate::class);
+    }
+
+    public function populationCommunity()
+    {
+        return $this->belongsTo(PopulationCommunity::class);
     }
 
     public function residenceType()

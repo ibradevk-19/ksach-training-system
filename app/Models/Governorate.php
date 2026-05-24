@@ -10,4 +10,9 @@ class Governorate extends Model
         'name',
         'status'
     ];
+
+    public function populationCommunities()
+    {
+        return $this->hasMany(PopulationCommunity::class);
+    }
 }

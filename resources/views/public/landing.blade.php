@@ -892,7 +892,7 @@
 
               <div class="hero-stat">
                 <strong>130</strong>
-                <span>ساعة تدريبية لكل مسار</span>
+                <span>ساعة تدريبية لكل متدرب</span>
               </div>
             </div>
           </div>

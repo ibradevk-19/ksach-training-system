@@ -102,6 +102,11 @@
             </div>
 
             <div class="col-md-6 mb-3">
+              <strong>التجمع السكاني:</strong>
+              <div>{{ $application->applicant?->populationCommunity?->name ?? '-' }}</div>
+            </div>
+
+            <div class="col-md-6 mb-3">
               <strong>الجنس:</strong>
               <div>{{ $application->applicant?->gender == 'male' ? 'ذكر' : 'أنثى' }}</div>
             </div>
