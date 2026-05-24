@@ -135,16 +135,76 @@
       transition: all .25s ease;
     }
 
-    .btn-outline-soft:hover {
-      background: var(--soft);
-      color: var(--primary-dark);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-soft);
-    }
+	    .btn-outline-soft:hover {
+	      background: var(--soft);
+	      color: var(--primary-dark);
+	      transform: translateY(-4px);
+	      box-shadow: var(--shadow-soft);
+	    }
 
-    .hero-section {
-      position: relative;
-      min-height: 100vh;
+	    .funder-section {
+	      padding: 104px 0 26px;
+	      background: #fff;
+	    }
+
+	    .funder-panel {
+	      display: grid;
+	      grid-template-columns: minmax(220px, 320px) 1fr;
+	      align-items: center;
+	      gap: 34px;
+	      padding: 30px 34px;
+	      border: 1px solid rgba(15, 23, 42, .08);
+	      border-radius: var(--radius-lg);
+	      background:
+	        linear-gradient(135deg, rgba(240, 253, 250, .9), rgba(255, 255, 255, .96)),
+	        #fff;
+	      box-shadow: var(--shadow-soft);
+	    }
+
+	    .funder-logo-box {
+	      min-height: 118px;
+	      display: flex;
+	      align-items: center;
+	      justify-content: center;
+	      padding: 18px;
+	      border-radius: 22px;
+	      background: #fff;
+	      border: 1px solid rgba(15, 23, 42, .06);
+	    }
+
+	    .funder-logo-box img {
+	      width: 100%;
+	      max-width: 250px;
+	      height: auto;
+	      display: block;
+	    }
+
+	    .funder-kicker {
+	      display: inline-flex;
+	      align-items: center;
+	      gap: 8px;
+	      margin-bottom: 10px;
+	      color: var(--primary-dark);
+	      font-weight: 900;
+	    }
+
+	    .funder-title {
+	      margin-bottom: 10px;
+	      font-size: clamp(1.45rem, 2.3vw, 2.1rem);
+	      font-weight: 900;
+	      line-height: 1.45;
+	    }
+
+	    .funder-description {
+	      margin: 0;
+	      color: var(--muted);
+	      line-height: 1.95;
+	      font-weight: 700;
+	    }
+
+	    .hero-section {
+	      position: relative;
+	      min-height: 100vh;
       padding: 160px 0 95px;
       background:
         radial-gradient(circle at 10% 15%, rgba(20, 184, 166, .22), transparent 28%),
@@ -748,10 +808,15 @@
       transform: translateY(-5px);
     }
 
-    @media (max-width: 991px) {
-      .hero-section {
-        padding-top: 130px;
-      }
+	    @media (max-width: 991px) {
+	      .funder-panel {
+	        grid-template-columns: 1fr;
+	        gap: 22px;
+	      }
+
+	      .hero-section {
+	        padding-top: 130px;
+	      }
 
       .visual-card {
         margin-top: 35px;
@@ -770,13 +835,26 @@
       }
     }
 
-    @media (max-width: 575px) {
-      .section-padding {
-        padding: 66px 0;
-      }
+	    @media (max-width: 575px) {
+	      .section-padding {
+	        padding: 66px 0;
+	      }
 
-      .hero-section {
-        padding: 120px 0 70px;
+	      .funder-section {
+	        padding: 88px 0 18px;
+	      }
+
+	      .funder-panel {
+	        padding: 24px 20px;
+	        border-radius: 22px;
+	      }
+
+	      .funder-logo-box {
+	        min-height: 96px;
+	      }
+
+	      .hero-section {
+	        padding: 120px 0 70px;
       }
 
       .hero-title {
@@ -849,8 +927,25 @@
 
 <main>
 
-  <section class="hero-section" id="home">
-    <div class="container">
+	  <section class="funder-section" >
+	    <div class="container">
+	      <div class="funder-panel">
+	        <div class="funder-logo-box">
+	          <img src="https://www.ksrelief.org/assets/images/ksreliefLogoColored.svg" alt="شعار مركز الملك سلمان للإغاثة والأعمال الإنسانية">
+	        </div>
+
+	        <div>
+	          <h2 class="funder-title">بدعم من مركز الملك سلمان للإغاثة والأعمال الإنسانية</h2>
+	          <p class="funder-description">
+	            يساهم مركز الملك سلمان للإغاثة والأعمال الإنسانية في تمكين الفئات المستهدفة عبر دعم مسارات التدريب وبناء المهارات، بما يعزز فرص الوصول إلى دخل كريم ومستدام.
+	          </p>
+	        </div>
+	      </div>
+	    </div>
+	  </section>
+
+	  <section class="hero-section" id="home">
+	    <div class="container">
       <div class="row align-items-center g-5">
         <div class="col-lg-6">
           <div class="hero-content">
