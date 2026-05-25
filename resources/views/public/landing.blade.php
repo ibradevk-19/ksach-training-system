@@ -994,7 +994,7 @@
     <div class="container">
       <a class="navbar-brand d-flex align-items-center gap-2" href="#home" aria-label="بوابة التمكين">
         <span class="brand-logo">
-          <img src="{{ asset('logo.jpeg') }}" alt="المركز السعودي للثقافة والتراث">
+          <img src="{{ asset('logo-p.jpeg') }}" alt="المركز السعودي للثقافة والتراث">
         </span>
         <span> تمكين</span>
       </a>
@@ -1060,7 +1060,7 @@
 	          </div>
 	          <div>
 	            <div class="funder-logo-box">
-	              <img src="{{ asset('logo.jpeg') }}" alt="شعار المركز السعودي للثقافة والتراث">
+	              <img src="{{ asset('logo-p.jpeg') }}" alt="شعار المركز السعودي للثقافة والتراث">
 	            </div>
 	            <p class="funder-logo-caption">الشريك التنفيذي</p>
 	          </div>
