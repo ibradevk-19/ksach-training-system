@@ -149,16 +149,28 @@
 
 	    .funder-panel {
 	      display: grid;
-	      grid-template-columns: minmax(220px, 320px) 1fr;
+	      grid-template-columns: 1fr minmax(260px, 360px);
 	      align-items: center;
 	      gap: 34px;
-	      padding: 30px 34px;
+	      padding: 34px;
 	      border: 1px solid rgba(15, 23, 42, .08);
 	      border-radius: var(--radius-lg);
 	      background:
-	        linear-gradient(135deg, rgba(240, 253, 250, .9), rgba(255, 255, 255, .96)),
+	        radial-gradient(circle at 15% 20%, rgba(245, 158, 11, .14), transparent 30%),
+	        linear-gradient(135deg, rgba(240, 253, 250, .94), rgba(255, 255, 255, .98)),
 	        #fff;
 	      box-shadow: var(--shadow-soft);
+	    }
+
+	    .funder-content {
+	      max-width: 740px;
+	    }
+
+	    .funder-logos {
+	      display: grid;
+	      grid-template-columns: 1fr;
+	      align-items: stretch;
+	      gap: 14px;
 	    }
 
 	    .funder-logo-box {
@@ -172,11 +184,25 @@
 	      border: 1px solid rgba(15, 23, 42, .06);
 	    }
 
+	    .funder-logo-box.is-primary {
+	      min-height: 150px;
+	      border-color: rgba(15, 118, 110, .16);
+	      box-shadow: 0 16px 36px rgba(15, 118, 110, .1);
+	    }
+
 	    .funder-logo-box img {
 	      width: 100%;
-	      max-width: 250px;
+	      max-width: 214px;
 	      height: auto;
 	      display: block;
+	    }
+
+	    .funder-logo-caption {
+	      margin: 8px 0 0;
+	      color: var(--muted);
+	      font-size: .9rem;
+	      font-weight: 800;
+	      text-align: center;
 	    }
 
 	    .funder-kicker {
@@ -188,9 +214,14 @@
 	      font-weight: 900;
 	    }
 
+	    .funder-kicker i {
+	      color: var(--secondary);
+	      font-size: 1.2rem;
+	    }
+
 	    .funder-title {
-	      margin-bottom: 10px;
-	      font-size: clamp(1.45rem, 2.3vw, 2.1rem);
+	      margin-bottom: 12px;
+	      font-size: clamp(1.65rem, 2.5vw, 2.35rem);
 	      font-weight: 900;
 	      line-height: 1.45;
 	    }
@@ -199,6 +230,49 @@
 	      margin: 0;
 	      color: var(--muted);
 	      line-height: 1.95;
+	      font-weight: 700;
+	    }
+
+	    .funder-role-list {
+	      display: grid;
+	      grid-template-columns: repeat(3, minmax(0, 1fr));
+	      gap: 12px;
+	      margin-top: 22px;
+	    }
+
+	    .funder-role-item {
+	      min-height: 116px;
+	      padding: 18px;
+	      border-radius: 20px;
+	      background: rgba(255, 255, 255, .78);
+	      border: 1px solid rgba(15, 23, 42, .07);
+	    }
+
+	    .funder-role-item i {
+	      display: inline-flex;
+	      align-items: center;
+	      justify-content: center;
+	      width: 40px;
+	      height: 40px;
+	      margin-bottom: 12px;
+	      border-radius: 14px;
+	      background: rgba(15, 118, 110, .1);
+	      color: var(--primary-dark);
+	      font-size: 22px;
+	    }
+
+	    .funder-role-item strong {
+	      display: block;
+	      margin-bottom: 6px;
+	      font-weight: 900;
+	      color: var(--dark);
+	    }
+
+	    .funder-role-item span {
+	      display: block;
+	      color: var(--muted);
+	      line-height: 1.7;
+	      font-size: .94rem;
 	      font-weight: 700;
 	    }
 
@@ -814,6 +888,15 @@
 	        gap: 22px;
 	      }
 
+	      .funder-logos {
+	        grid-template-columns: repeat(2, minmax(0, 1fr));
+	        max-width: 620px;
+	      }
+
+	      .funder-role-list {
+	        grid-template-columns: 1fr;
+	      }
+
 	      .hero-section {
 	        padding-top: 130px;
 	      }
@@ -851,6 +934,15 @@
 
 	      .funder-logo-box {
 	        min-height: 96px;
+	        padding: 14px;
+	      }
+
+	      .funder-logo-box.is-primary {
+	        min-height: 112px;
+	      }
+
+	      .funder-logos {
+	        grid-template-columns: 1fr;
 	      }
 
 	      .hero-section {
@@ -930,15 +1022,48 @@
 	  <section class="funder-section" >
 	    <div class="container">
 	      <div class="funder-panel">
-	        <div class="funder-logo-box">
-	          <img src="https://www.ksrelief.org/assets/images/ksreliefLogoColored.svg" alt="شعار مركز الملك سلمان للإغاثة والأعمال الإنسانية">
+	        <div class="funder-content">
+	          <div class="funder-kicker">
+	            <i class="ti ti-heart-handshake"></i>
+	            دعم إنساني وتنموي فاعل
+	          </div>
+	          <h2 class="funder-title">مركز الملك سلمان للإغاثة والأعمال الإنسانية يقود دعم التمكين الاقتصادي للفئات الأشد ضعفًا</h2>
+	          <p class="funder-description">
+	            يوفّر المركز الدعم الرئيسي لهذا المشروع عبر تمويل مسارات التدريب وبناء المهارات، بما يحوّل الاحتياج إلى فرص عملية تساعد المستفيدين على الوصول إلى دخل كريم ومستدام، وتعزز قدرة الأسر على الصمود والتعافي.
+	          </p>
+
+	          <div class="funder-role-list">
+	            <div class="funder-role-item">
+	              <i class="ti ti-school"></i>
+	              <strong>تأهيل مهني مباشر</strong>
+	              <span>دعم برامج تدريبية مرتبطة باحتياجات سوق العمل وفرص التشغيل.</span>
+	            </div>
+	            <div class="funder-role-item">
+	              <i class="ti ti-users-group"></i>
+	              <strong>استهداف الفئات الأشد ضعفًا</strong>
+	              <span>توجيه الموارد نحو الأسر وذوي الإعاقة والفئات الأكثر احتياجًا.</span>
+	            </div>
+	            <div class="funder-role-item">
+	              <i class="ti ti-chart-arrows-vertical"></i>
+	              <strong>أثر مستدام</strong>
+	              <span>تعزيز الاعتماد على الذات وتحسين سبل العيش على المدى الطويل.</span>
+	            </div>
+	          </div>
 	        </div>
 
-	        <div>
-	          <h2 class="funder-title">بدعم من مركز الملك سلمان للإغاثة والأعمال الإنسانية</h2>
-	          <p class="funder-description">
-	            يساهم مركز الملك سلمان للإغاثة والأعمال الإنسانية في تمكين الفئات المستهدفة عبر دعم مسارات التدريب وبناء المهارات، بما يعزز فرص الوصول إلى دخل كريم ومستدام.
-	          </p>
+	        <div class="funder-logos" aria-label="شعارات الشركاء">
+	          <div>
+	            <div class="funder-logo-box is-primary">
+	              <img src="https://www.ksrelief.org/assets/images/ksreliefLogoColored.svg" alt="شعار مركز الملك سلمان للإغاثة والأعمال الإنسانية">
+	            </div>
+	            <p class="funder-logo-caption">الداعم الرئيسي للمشروع</p>
+	          </div>
+	          <div>
+	            <div class="funder-logo-box">
+	              <img src="https://ksach.org/frontend/assets/images/logos/full_logo_color01.png" alt="شعار المركز السعودي للثقافة والتراث">
+	            </div>
+	            <p class="funder-logo-caption">الشريك التنفيذي</p>
+	          </div>
 	        </div>
 	      </div>
 	    </div>
