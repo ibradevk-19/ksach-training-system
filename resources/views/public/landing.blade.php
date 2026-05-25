@@ -1060,7 +1060,7 @@
 	          </div>
 	          <div>
 	            <div class="funder-logo-box">
-	              <img src="https://ksach.org/frontend/assets/images/logos/full_logo_color01.png" alt="شعار المركز السعودي للثقافة والتراث">
+	              <img src="{{ asset('main-image.jpeg') }}" alt="شعار المركز السعودي للثقافة والتراث">
 	            </div>
 	            <p class="funder-logo-caption">الشريك التنفيذي</p>
 	          </div>
